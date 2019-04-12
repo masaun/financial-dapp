@@ -1,5 +1,5 @@
 {
-  "name": "zepkit",
+  "name": "financial-dapp",
   "version": "1.0.0",
   "description": "Truffle box containing React, ZeppelinOS & OpenZeppelin",
   "main": "index.js",
