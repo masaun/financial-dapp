@@ -2,43 +2,49 @@ pragma solidity ^0.5.0;
 
 // import "openzeppelin-eth/contracts/ownership/Ownable.sol";
 import "zos-lib/contracts/Initializable.sol";
-// import "openzeppelin-eth/contracts/token/ERC20/IERC20.sol";
-// import "openzeppelin-eth/contracts/token/ERC20/StandaloneERC20.sol";
-// import "openzeppelin-eth/contracts/ownership/Ownable.sol";
+//import "openzeppelin-eth/contracts/token/ERC20/IERC20.sol";
+// import "openzeppelin-eth/contracts/drafts/ERC20Migrator.sol";
+// import "openzeppelin-eth/contracts/token/ERC20/ERC20Mintable.sol";
+// import "openzeppelin-eth/contracts/token/ERC20/ERC20Detailed.sol";
 import "openzeppelin-solidity-2.1.1/contracts/token/ERC20/ERC20.sol";
 import "openzeppelin-solidity-2.1.1/contracts/token/ERC20/IERC20.sol";
 import "openzeppelin-solidity-2.1.1/contracts/token/ERC20/ERC20Detailed.sol";
-import "openzeppelin-solidity-2.1.1/contracts/ownership/Ownable.sol";
 
 
-contract FinancialToken is Initializable, ERC20, IERC20, ERC20Detailed {
+contract FinancialToken is ERC20, ERC20Detailed {
 
-    //uint private count;
-    //address private _owner;
+    uint private INITIAL_SUPPLY = 10000e18;
 
-    function initialize(
-        string memory name,
-        string memory symbol,
-        uint8 decimals,
-        uint256 initSupply
-    ) 
-        public 
-        initializer 
-        ERC20Detailed(name, symbol, decimals)  // Call constructor of ERC20Detailed.sol
-    {
-        name = "FinancialToken";
-        symbol = "FNL";
-        decimals = 18;
-        initSupply = 100;
-
-        _mint(msg.sender, initSupply);
-    }
+    // Success
+    constructor () public ERC20Detailed("FinancialToken", "FNL", 18) {
+        _mint(msg.sender, INITIAL_SUPPLY);
+    } 
 
 
-    function owner() public view returns (address) {
-        return _owner;
-    }
-    
+    // function initialize(
+    //     ERC20Detailed _legacyToken,
+    //     ERC20Migrator ,
+    //     string memory symbol,
+    //     uint8 decimals
+    // )
+    //     public
+    //     initializer
+    //     ERC20()
+    //     ERC20Detailed(name, symbol, decimals)  // Call constructor of ERC20Detailed.sol
+    // {
+    //     // name = "FinancialToken";
+    //     // symbol = "FNL";
+    //     // decimals = 18;
+    //     // initSupply = 100;
+
+    //     string memory name = "FinancialToken";
+    //     string memory symbol = "FNL";
+    //     uint256 decimals = 18;
+    //     uint256 initSupply = 10000;
+
+    //     _mint(msg.sender, initSupply);
+    // }
+
 
     // in progress    
 
