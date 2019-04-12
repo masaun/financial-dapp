@@ -282,6 +282,28 @@ class App extends Component {
     );
   }
 
+
+  renderFinancial() {
+    const {} = this.state;
+
+    return (
+      <div className={styles.wrapper}>
+      {!this.state.web3 && this.renderLoader()}
+      {this.state.web3 && !this.state.project && (
+        this.renderDeployCheck('financial')
+      )}
+      {this.state.web3 && this.state.project && (
+        <div className={styles.contracts}>
+          <h1>Financial Contract is good to Go!</h1>
+          <div className={styles.widgets}>
+            <p>テスト</p>
+          </div>
+        </div>
+      )}
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className={styles.App}>
@@ -289,7 +311,7 @@ class App extends Component {
           {this.state.route === '' && this.renderInstructions()}
           {this.state.route === 'counter' && this.renderBody()}
           {this.state.route === 'evm' && this.renderEVM()}
-          {this.state.route === 'faq' && this.renderFAQ()}
+          {this.state.route === 'financial' && this.renderFinancial()}
         <Footer />
       </div>
     );
