@@ -51,12 +51,12 @@ class App extends Component {
     let Wallet = {};
     let Financial = {};
     try {
-      Counter = require("../../contracts/Counter.sol");
-      Wallet = require("../../contracts/Wallet.sol");
-      Financial = require("../../contracts/Financial.sol"); // Load ABI of contract of Financial
-      // Counter = require("./contracts/Counter.json");
-      // Wallet = require("./contracts/Wallet.json");
-      // Financial = require("./contracts/Financial.json");  // Load ABI of contract of Financial
+      // Counter = require("../../contracts/Counter.sol");
+      // Wallet = require("../../contracts/Wallet.sol");
+      // Financial = require("../../contracts/Financial.sol"); // Load ABI of contract of Financial
+      Counter = require("../../build/contracts/Counter.json");
+      Wallet = require("../../build/contracts/Wallet.json");
+      Financial = require("../../build/contracts/Financial.json");  // Load ABI of contract of Financial
     } catch (e) {
       console.log(e);
     }
@@ -111,7 +111,7 @@ class App extends Component {
             console.log('=== instanceFinancial ===', instanceFinancial);
           }
         }
-        if (instance || instanceWallet || Financial) {
+        if (instance || instanceWallet || instanceFinancial) {
           // Set web3, accounts, and contract to the state, and then proceed with an
           // example of interacting with the contract's methods.
           this.setState({ web3, ganacheAccounts, accounts, balance, networkId, networkType, hotLoaderDisabled,
@@ -308,10 +308,10 @@ class App extends Component {
     return (
       <div className={styles.wrapper}>
       {!this.state.web3 && this.renderLoader()}
-      {this.state.web3 && !this.state.project && (
+      {this.state.web3 && !this.state.financial && (
         this.renderDeployCheck('financial')
       )}
-      {this.state.web3 && this.state.project && (
+      {this.state.web3 && this.state.financial && (
         <div className={styles.contracts}>
           <h1>Financial Contract is good to Go!</h1>
           <div className={styles.widgets}>
