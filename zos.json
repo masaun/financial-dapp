@@ -1,0 +1,8 @@
+{
+  "zosversion": "2.2",
+  "name": "financial-dapp",
+  "version": "0.1.0",
+  "contracts": {
+    "Financial": "Financial"
+  }
+}

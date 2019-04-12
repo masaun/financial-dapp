@@ -6,6 +6,9 @@ import "zos-lib/contracts/Initializable.sol";
 
 contract Financial is Initializable {
 
+    uint private count;
+    address private _owner;
+
     function initialize(uint num) public initializer {
         _owner = msg.sender;
         count = num;
@@ -17,6 +20,6 @@ contract Financial is Initializable {
     }
     
 
-    
+    // in progress    
 
 }

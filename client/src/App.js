@@ -49,9 +49,14 @@ class App extends Component {
     const hotLoaderDisabled = zeppelinSolidityHotLoaderOptions.disabled;
     let Counter = {};
     let Wallet = {};
+    let Financial = {};
     try {
       Counter = require("../../contracts/Counter.sol");
       Wallet = require("../../contracts/Wallet.sol");
+      Financial = require("../../contracts/Financial.sol"); // Load ABI of contract of Financial
+      // Counter = require("./contracts/Counter.json");
+      // Wallet = require("./contracts/Wallet.json");
+      // Financial = require("./contracts/Financial.json");  // Load ABI of contract of Financial
     } catch (e) {
       console.log(e);
     }
@@ -76,6 +81,7 @@ class App extends Component {
         balance = web3.utils.fromWei(balance, 'ether');
         let instance = null;
         let instanceWallet = null;
+        let instanceFinancial = null;  // Define instance of Financial contract
         let deployedNetwork = null;
         if (Counter.networks) {
           deployedNetwork = Counter.networks[networkId.toString()];
@@ -95,14 +101,24 @@ class App extends Component {
             );
           }
         }
-        if (instance || instanceWallet) {
+        if (Financial.networks) {  // Create instance of Financial contract
+          deployedNetwork = Financial.networks[networkId.toString()];
+          if (deployedNetwork) {
+            instanceFinancial = new web3.eth.Contract(
+              Financial.abi,
+              deployedNetwork && deployedNetwork.address,
+            );
+            console.log('=== instanceFinancial ===', instanceFinancial);
+          }
+        }
+        if (instance || instanceWallet || Financial) {
           // Set web3, accounts, and contract to the state, and then proceed with an
           // example of interacting with the contract's methods.
           this.setState({ web3, ganacheAccounts, accounts, balance, networkId, networkType, hotLoaderDisabled,
-            isMetaMask, contract: instance, wallet: instanceWallet }, () => {
-              this.refreshValues(instance, instanceWallet);
+            isMetaMask, contract: instance, wallet: instanceWallet, financial: instanceFinancial }, () => {
+              this.refreshValues(instance, instanceWallet, instanceFinancial);
               setInterval(() => {
-                this.refreshValues(instance, instanceWallet);
+                this.refreshValues(instance, instanceWallet, instanceFinancial);
               }, 5000);
             });
         }
@@ -125,12 +141,15 @@ class App extends Component {
     }
   }
 
-  refreshValues = (instance, instanceWallet) => {
+  refreshValues = (instance, instanceWallet, instanceFinancial) => {  // Add instanceFinancial to argument
     if (instance) {
       this.getCount();
     }
     if (instanceWallet) {
       this.updateTokenOwner();
+    }
+    if (instanceFinancial) {  // Financial
+      console.log('refreshValues of instanceFinancial');
     }
   }
 
