@@ -5,11 +5,13 @@ import "zos-lib/contracts/Initializable.sol";
 // import "openzeppelin-eth/contracts/token/ERC20/IERC20.sol";
 // import "openzeppelin-eth/contracts/token/ERC20/StandaloneERC20.sol";
 // import "openzeppelin-eth/contracts/ownership/Ownable.sol";
-import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
-import "openzeppelin-solidity/contracts/token/ERC20/DetailedERC20.sol";
+import "openzeppelin-solidity-2.2.0/contracts/token/ERC20/ERC20.sol";
+import "openzeppelin-solidity-2.2.0/contracts/token/ERC20/IERC20.sol";
+import "openzeppelin-solidity-2.2.0/contracts/token/ERC20/ERC20Detailed.sol";
+import "openzeppelin-solidity-2.2.0/contracts/ownership/Ownable.sol";
 
 
-contract FinancialToken is Initializable, ERC20, ERC20Detailed {
+contract FinancialToken is Initializable, ERC20, IERC20, ERC20Detailed {
 
     //uint private count;
     //address private _owner;
