@@ -8,14 +8,43 @@ import "openzeppelin-solidity-2.1.1/contracts/token/ERC20/ERC20Detailed.sol";
 // import "openzeppelin-eth/contracts/token/ERC20/ERC20Detailed.sol";
 
 
-contract FinancialToken is ERC20, ERC20Detailed {
+contract FinancialToken is Initializable, ERC20, ERC20Detailed {
+    
+    string _name = "FinancialToken";
+    string _symbol = "FNL";
+    uint8 _decimals = 18;
 
     uint private INITIAL_SUPPLY = 10000e18;
 
     // Success
-    constructor () public ERC20Detailed("FinancialToken", "FNL", 18) {
+    constructor (
+        string memory name,
+        string memory symbol,
+        uint8 decimals
+    ) public ERC20Detailed(_name, _symbol, _decimals) 
+    {
         _mint(msg.sender, INITIAL_SUPPLY);
     } 
+
+    // Success
+    // constructor () public ERC20Detailed("FinancialToken", "FNL", 18) {
+    //     _mint(msg.sender, INITIAL_SUPPLY);
+    // } 
+
+
+    // Fail
+    // function initialize(
+    //     string memory name,
+    //     string memory symbol,
+    //     uint8 decimals
+    // ) 
+    //     public 
+    //     ERC20Detailed(_name, _symbol, _decimals)
+    //     initializer
+    // {
+    //     _mint(msg.sender, INITIAL_SUPPLY);
+    // }
+
 
     // Fail
     // function initialize() public initializer ERC20Detailed("FinancialToken", "FNL", 18) {
