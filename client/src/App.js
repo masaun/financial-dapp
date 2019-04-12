@@ -27,6 +27,8 @@ class App extends Component {
       route: window.location.pathname.replace("/",""),
 
       /////// Added state
+      //something_value: '',
+      //value: '',
     };
 
     /////// Bind something
