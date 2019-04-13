@@ -22,9 +22,10 @@ contract FinancialToken is Initializable {
     ERC20 public token;
 
     /* @notice pattern 1 of initialize function by using ZeppelinOS */
-    function initialize() public initializer {
-        token = new ERC20Detailed(_name, _symbol, _decimals); // This contract will not be upgradeable
-    } 
+    // function initialize() public initializer {
+    //     //token = new ERC20Detailed(_name, _symbol, _decimals); // This contract will not be upgradeable
+    //     token = new ERC20Detailed("FinancialToken", "FNL", 18); // This contract will not be upgradeable
+    // } 
 
 
     /* @notice pattern 2 of initialize function by using ZeppelinOS */
