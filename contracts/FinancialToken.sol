@@ -8,7 +8,7 @@ pragma solidity ^0.5.0;
 
 import "zos-lib/contracts/Initializable.sol";
 import "openzeppelin-eth/contracts/token/ERC20/ERC20.sol";
-import "openzeppelin-eth/contracts/token/ERC20/RC20Detailed.sol";
+import "openzeppelin-eth/contracts/token/ERC20/ERC20Detailed.sol";
 
 
 contract FinancialToken is Initializable {
@@ -50,14 +50,12 @@ contract FinancialToken is Initializable {
     // } 
 
 
-    /* @notice pattern 2 of initialize function by using OpenZeppelin-solidit
+    /* @notice pattern 2 of initialize function by using OpenZeppelin-solidit */
     // Success
     // constructor () public ERC20Detailed("FinancialToken", "FNL", 18) {
     //     _mint(msg.sender, INITIAL_SUPPLY);
     // } 
-
-
-
+    
 
 
 }
