@@ -15,4 +15,15 @@ contract("FinancialToken", accounts => {
         // If both is same, it is successful
         assert.equal(balance, 100, "First account don't have 100 FNL.");
     });
+
+
+    it("Get name of financialTokenInstance", async () => {
+        // Get instance of FinancialToken contract
+        //const financialTokenInstance = await FinancialToken.deployed();
+
+        const financialToken_name = await FinancialToken.deployed().then(i => instance = i);
+
+        console.log('=== instance.name() ===', instance.name());
+        //console.log(financialToken_name.name());
+    });
 });
