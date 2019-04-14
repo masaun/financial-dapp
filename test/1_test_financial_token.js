@@ -1,29 +1,18 @@
-const { BN, constants, expectEvent, shouldFail } = require('openzeppelin-test-helpers');
-const should = require('chai').should();
+const FinancialToken = artifacts.require("./FinancialToken.sol");
 
-const FinancialToken = artifacts.require('FinancialToken');
+contract("FinancialToken", accounts => {
+    it("...should put 100FNL in the first account.", async () => {
+        // Get instance of FinancialToken contract
+        const financialTokenInstance = await FinancialToken.deployed();
 
-contract("financial_token", async () => {
-  let financial_token;
-  const value = new BN(9999);
-  const add = new BN(1);
+        // Get balance of account[0]
+        let balance = await financialTokenInstance.balanceOf(accounts[0]);
 
-  beforeEach(async function () {
-    financial_token = await FinancialToken.new();
-    //counter.initialize(value, { from: owner });
-  });
-  
-  // it("should have proper owner", async () => {
-  //   (await counter.owner()).should.equal(owner);
-  // });
+        // Convert unit from wei to ether
+        balance = web3.utils.fromWei(balance, "ether");
 
-  // it("should have proper default value", async () => {
-  //   (await counter.getCounter()).should.bignumber.equal(value);
-  // });
-
-  it("burn", async () => {
-    
-
-  });
-
+        // Compare between balance and 100
+        // If both is same, it is successful
+        assert.equal(balance, 100, "First account don't have 100 FNL.");
+    });
 });
