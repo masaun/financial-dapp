@@ -19,11 +19,11 @@ contract("FinancialToken", accounts => {
 
     it("Get name of financialTokenInstance", async () => {
         // Get instance of FinancialToken contract
-        //const financialTokenInstance = await FinancialToken.deployed();
-
-        const financialToken_name = await FinancialToken.deployed().then(i => instance = i);
-
-        console.log('=== instance.name() ===', instance.name());
-        //console.log(financialToken_name.name());
+        const hoge = FinancialToken.deployed()
+                      .then((i) => {
+                          instance = i;
+                          instance_name = instance.name();
+                          console.log('=== instance_name ===', instance_name);
+                      });
     });
 });

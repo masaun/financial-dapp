@@ -50,14 +50,14 @@ class App extends Component {
     const hotLoaderDisabled = zeppelinSolidityHotLoaderOptions.disabled;
     let Counter = {};
     let Wallet = {};
-    let Financial = {};
+    let FinancialToken = {};
     try {
       // Counter = require("../../contracts/Counter.sol");
       // Wallet = require("../../contracts/Wallet.sol");
-      // Financial = require("../../contracts/Financial.sol"); // Load ABI of contract of Financial
+      // FinancialToken = require("../../contracts/Financial.sol"); // Load ABI of contract of Financial
       Counter = require("../../build/contracts/Counter.json");
       Wallet = require("../../build/contracts/Wallet.json");
-      Financial = require("../../build/contracts/Financial.json");  // Load ABI of contract of Financial
+      FinancialToken = require("../../build/contracts/FinancialToken.json");  // Load ABI of contract of Financial
     } catch (e) {
       console.log(e);
     }
@@ -82,7 +82,7 @@ class App extends Component {
         balance = web3.utils.fromWei(balance, 'ether');
         let instance = null;
         let instanceWallet = null;
-        let instanceFinancial = null;  // Define instance of Financial contract
+        let instanceFinancialToken = null;  // Define instance of Financial contract
         let deployedNetwork = null;
         if (Counter.networks) {
           deployedNetwork = Counter.networks[networkId.toString()];
@@ -102,24 +102,24 @@ class App extends Component {
             );
           }
         }
-        if (Financial.networks) {  // Create instance of Financial contract
-          deployedNetwork = Financial.networks[networkId.toString()];
+        if (FinancialToken.networks) {  // Create instance of Financial contract
+          deployedNetwork = FinancialToken.networks[networkId.toString()];
           if (deployedNetwork) {
-            instanceFinancial = new web3.eth.Contract(
-              Financial.abi,
+            instanceFinancialToken = new web3.eth.Contract(
+              FinancialToken.abi,
               deployedNetwork && deployedNetwork.address,
             );
-            console.log('=== instanceFinancial ===', instanceFinancial);
+            console.log('=== instanceFinancialToken ===', instanceFinancialToken);
           }
         }
-        if (instance || instanceWallet || instanceFinancial) {
+        if (instance || instanceWallet || instanceFinancialToken) {
           // Set web3, accounts, and contract to the state, and then proceed with an
           // example of interacting with the contract's methods.
           this.setState({ web3, ganacheAccounts, accounts, balance, networkId, networkType, hotLoaderDisabled,
-            isMetaMask, contract: instance, wallet: instanceWallet, financial: instanceFinancial }, () => {
-              this.refreshValues(instance, instanceWallet, instanceFinancial);
+            isMetaMask, contract: instance, wallet: instanceWallet, financial_token: instanceFinancialToken }, () => {
+              this.refreshValues(instance, instanceWallet, instanceFinancialToken);
               setInterval(() => {
-                this.refreshValues(instance, instanceWallet, instanceFinancial);
+                this.refreshValues(instance, instanceWallet, instanceFinancialToken);
               }, 5000);
             });
         }
@@ -142,15 +142,15 @@ class App extends Component {
     }
   }
 
-  refreshValues = (instance, instanceWallet, instanceFinancial) => {  // Add instanceFinancial to argument
+  refreshValues = (instance, instanceWallet, instanceFinancialToken) => {  // Add instanceFinancial to argument
     if (instance) {
       this.getCount();
     }
     if (instanceWallet) {
       this.updateTokenOwner();
     }
-    if (instanceFinancial) {  // Financial
-      console.log('refreshValues of instanceFinancial');
+    if (instanceFinancialToken) {  // Financial
+      console.log('refreshValues of instanceFinancialToken');
     }
   }
 
@@ -303,22 +303,22 @@ class App extends Component {
   }
 
 
-  renderFinancial() {
+  renderFinancialToken() {
     const {} = this.state;
 
     return (
       <div className={styles.wrapper}>
       {!this.state.web3 && this.renderLoader()}
-      {this.state.web3 && !this.state.financial && (
-        this.renderDeployCheck('financial')
+      {this.state.web3 && !this.state.financial_token && (
+        this.renderDeployCheck('financial_token')
       )}
-      {this.state.web3 && this.state.financial && (
+      {this.state.web3 && this.state.financial_token && (
         <div className={styles.contracts}>
-          <h1>Financial Contract is good to Go!</h1>
+          <h1>FinancialToken Contract is good to Go!</h1>
 
           <Card width={'420px'} bg="primary">
             <div className={styles.widgets}>
-              <p>テスト</p>
+              <p>テストテスト</p>
             </div>
           </Card>
         </div>
@@ -334,7 +334,7 @@ class App extends Component {
           {this.state.route === '' && this.renderInstructions()}
           {this.state.route === 'counter' && this.renderBody()}
           {this.state.route === 'evm' && this.renderEVM()}
-          {this.state.route === 'financial' && this.renderFinancial()}
+          {this.state.route === 'financial_token' && this.renderFinancialToken()}
         <Footer />
       </div>
     );
