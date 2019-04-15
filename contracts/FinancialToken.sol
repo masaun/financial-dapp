@@ -18,7 +18,11 @@ contract FinancialToken is ERC20, ERC20Detailed, ERC20Mintable, ERC20Burnable {
         string memory symbol,
         uint8 decimals,
         uint256 initSupply
-    ) public ERC20Detailed(name, symbol, decimals) 
+    ) 
+        public 
+        ERC20Detailed(name, symbol, decimals)
+        ERC20Mintable()
+        ERC20Burnable()
     {
         _mint(msg.sender, initSupply);
     } 
@@ -28,6 +32,19 @@ contract FinancialToken is ERC20, ERC20Detailed, ERC20Mintable, ERC20Burnable {
     // Success
     // constructor () public ERC20Detailed("FinancialToken", "FNL", 18) {
     //     _mint(msg.sender, INITIAL_SUPPLY);
-    // } 
+    // }
+
+
+    function mintToken(address to, uint256 value) public returns (bool) {
+        mint(msg.sender, value);
+
+        return true;
+    }
     
+    
+    function burnToken(uint256 value) public returns (bool) {
+        burn(value);
+
+        return true;
+    }
 }
