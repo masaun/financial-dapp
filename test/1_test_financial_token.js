@@ -23,7 +23,7 @@ contract("FinancialToken", accounts => {
                       .then((i) => {
                           instance = i;
                           instance_name = instance.name();
-                          console.log('=== instance_name ===', instance_name);
+                          console.log('=== instance_name ===', instance_name); // Promise { <pending> }
                       });
     });
 
@@ -45,6 +45,21 @@ contract("FinancialToken", accounts => {
     });
 
 
+    it("Get name of totalSupply", async () => {
+        const instance = await FinancialToken.deployed()
+
+        /*** Display totalSupply by uint of Wei ***/
+        instance.totalSupply().then((result) => {
+          console.log('=== totalSupply of financialToken (unit of Wei) ===', result);  // Success（"<BN: 56bc75e2d63100000>"）
+        });
+
+        /*** Display totalSupply by uint of Ether ***/
+        instance.totalSupply().then((result) => {
+          const b = web3.utils.fromWei(result, 'ether')
+          console.log('=== totalSupply of financialToken (unit of Ehter) ===', b);  // Success（"100"）
+        });
+    });
+
 
     //const to = '0x5Eb9CdAE61c07ADD7bf703Eb12eDFD1cecc22A41';
     //const value = 10;
@@ -55,16 +70,22 @@ contract("FinancialToken", accounts => {
         const _to = '0x5Eb9CdAE61c07ADD7bf703Eb12eDFD1cecc22A41';
         const _value = 10;
 
-        let financial_token = await new web3.eth.Contract(FinancialToken.abi, FinancialToken.address);
+        //let financial_token = await new web3.eth.Contract(FinancialToken.abi, FinancialToken.address);
         //console.log('=== financial_token ===', financial_token);
 
-        let response_mintToken = financial_token.methods.mintToken(_to, _value).send({from: accounts[0]});
-        console.log('=== mintToken function ===', response_mintToken);
+        //let response_mintToken = financial_token.methods.mintToken(_to, _value).send({from: accounts[0]});
+        //console.log('=== mintToken function ===', response_mintToken);
+
+        let instance = await FinancialToken.deployed();
+        instance.totalSupply()
+                .then((result) => { 
+                    console.log('==== totalSupply() ===', result) 
+                });
 
 
-        response_mintToken.then((result) => {
-          console.log('==== mintToken function v2 ===', result);
-        });
+        // response_mintToken.then((result) => {
+        //   console.log('==== mintToken function v2 ===', result);
+        // });
 
     });
 
