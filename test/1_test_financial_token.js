@@ -61,47 +61,18 @@ contract("FinancialToken", accounts => {
     });
 
 
-    //const to = '0x5Eb9CdAE61c07ADD7bf703Eb12eDFD1cecc22A41';
-    //const value = 10;
     it("Mint token", async () => {
         const accounts = await web3.eth.getAccounts();
-        console.log('=== accounts ===', accounts);  // Success
+        //console.log('=== accounts ===', accounts);  // Success
 
         const _to = '0x5Eb9CdAE61c07ADD7bf703Eb12eDFD1cecc22A41';
         const _value = 10;
 
-        //let financial_token = await new web3.eth.Contract(FinancialToken.abi, FinancialToken.address);
+        let financial_token = await new web3.eth.Contract(FinancialToken.abi, FinancialToken.address);
         //console.log('=== financial_token ===', financial_token);
 
-        //let response_mintToken = financial_token.methods.mintToken(_to, _value).send({from: accounts[0]});
-        //console.log('=== mintToken function ===', response_mintToken);
-
-        let instance = await FinancialToken.deployed();
-        instance.totalSupply()
-                .then((result) => { 
-                    console.log('==== totalSupply() ===', result) 
-                });
-
-
-        // response_mintToken.then((result) => {
-        //   console.log('==== mintToken function v2 ===', result);
-        // });
-
+        let response_mintToken = await financial_token.methods.mintToken(_to, _value).send({from: accounts[0]});
+        console.log('=== mintToken function ===', response_mintToken);   // Success (be able to check log of Tx)
     });
 
-
-
-    // it("Mint token", async () => {
-    //     const accounts = await web3.eth.getAccounts();
-    //     console.log('=== accounts ===', accounts);  // Success
-
-    //     const _to = '0x5Eb9CdAE61c07ADD7bf703Eb12eDFD1cecc22A41';
-    //     const _value = 10;
-
-    //     const financial_token = await new web3.eth.Contract(FinancialToken.abi, FinancialToken.address);
-    //     //console.log('=== financial_token ===', financial_token);
-
-    //     const response_mintToken = financial_token.methods.mintToken(_to, _value).send({from: accounts[0]});
-    //     console.log('=== mintToken function ===', response_mintToken);
-    // });
 });
