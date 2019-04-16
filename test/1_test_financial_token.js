@@ -88,4 +88,14 @@ contract("FinancialToken", accounts => {
         let response_burnToken = await financial_token.methods.burnToken(_value).send({from: accounts[0]});
         console.log('=== burnToken function ===', response_burnToken);   // Success (be able to check log of Tx)
     });
+
+
+    it("totalSupply", async () => {
+        const accounts = await web3.eth.getAccounts();
+
+        let financial_token = await new web3.eth.Contract(FinancialToken.abi, FinancialToken.address);
+
+        let totalSupply_ERC20 = await financial_token.methods.totalSupply().call();
+        console.log('=== totalSupply function ===', totalSupply_ERC20);   // Success
+    });
 });

@@ -47,15 +47,5 @@ contract FinancialToken is ERC20, ERC20Detailed, ERC20Mintable, ERC20Burnable {
 
         return true;
     }
-
-
-    // function totalSupply() public view returns (uint256)  {
-    //     return totalSupply();
-    // }
-
-
-    // function balanceOf(address owner) public view returns (uint256) {
-    //     return balanceOf(owner);
-    // }
     
 }
