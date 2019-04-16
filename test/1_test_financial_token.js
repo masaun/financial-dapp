@@ -73,6 +73,19 @@ contract("FinancialToken", accounts => {
 
         let response_mintToken = await financial_token.methods.mintToken(_to, _value).send({from: accounts[0]});
         console.log('=== mintToken function ===', response_mintToken);   // Success (be able to check log of Tx)
+
+        /*** Display totalSupply by uint of Ether ***/
+        const instance = await FinancialToken.deployed()
+        instance.balanceOf(accounts[0]).then((result) => {
+          const a = web3.utils.fromWei(result, "ether");
+          console.log('=== balance Of accounts[0] financialToken (unit of Ehter) ===', b);  // Success（"100"）
+        });
+
+
+        /*** Display totalSupply by uint of Wei ***/
+        instance.totalSupply().then((result) => {
+          console.log('=== totalSupply of financialToken (unit of Wei) ===', result);  // Success（"<BN: 56bc75e2d63100000>"）
+        });
     });
 
 });
