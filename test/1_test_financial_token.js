@@ -7,9 +7,11 @@ contract("FinancialToken", accounts => {
 
         // Get balance of account[0]
         let balance = await financialTokenInstance.balanceOf(accounts[0]);
+        console.log('=== balance of accounts[0] ===', balance);
 
         // Convert unit from wei to ether
         balance = web3.utils.fromWei(balance, "ether");
+        console.log('=== balance of accounts[0] (Convert unit from wei to ether) ===', balance);
 
         // Compare between balance and 100
         // If both is same, it is successful
@@ -46,6 +48,7 @@ contract("FinancialToken", accounts => {
 
 
     it("Get name of totalSupply", async () => {
+
         const instance = await FinancialToken.deployed()
 
         /*** Display totalSupply by uint of Wei ***/
@@ -65,7 +68,7 @@ contract("FinancialToken", accounts => {
         const accounts = await web3.eth.getAccounts();
         //console.log('=== accounts ===', accounts);  // Success
 
-        const _to = '0x5Eb9CdAE61c07ADD7bf703Eb12eDFD1cecc22A41';
+        const _to = accounts[0];
         const _value = 10;
 
         let financial_token = await new web3.eth.Contract(FinancialToken.abi, FinancialToken.address);
@@ -73,19 +76,16 @@ contract("FinancialToken", accounts => {
 
         let response_mintToken = await financial_token.methods.mintToken(_to, _value).send({from: accounts[0]});
         console.log('=== mintToken function ===', response_mintToken);   // Success (be able to check log of Tx)
-
-        /*** Display totalSupply by uint of Ether ***/
-        const instance = await FinancialToken.deployed()
-        instance.balanceOf(accounts[0]).then((result) => {
-          const a = web3.utils.fromWei(result, "ether");
-          console.log('=== balance Of accounts[0] financialToken (unit of Ehter) ===', b);  // Success（"100"）
-        });
-
-
-        /*** Display totalSupply by uint of Wei ***/
-        instance.totalSupply().then((result) => {
-          console.log('=== totalSupply of financialToken (unit of Wei) ===', result);  // Success（"<BN: 56bc75e2d63100000>"）
-        });
     });
 
+
+    it("Burn token", async () => {
+        const accounts = await web3.eth.getAccounts();
+        const _value = 10;
+
+        let financial_token = await new web3.eth.Contract(FinancialToken.abi, FinancialToken.address);
+
+        let response_burnToken = await financial_token.methods.burnToken(_value).send({from: accounts[0]});
+        console.log('=== burnToken function ===', response_burnToken);   // Success (be able to check log of Tx)
+    });
 });
