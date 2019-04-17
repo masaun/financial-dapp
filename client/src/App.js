@@ -7,7 +7,7 @@ import Web3Info from "./components/Web3Info/index.js";
 import CounterUI from "./components/Counter/index.js";
 import Wallet from "./components/Wallet/index.js";
 import Instructions from "./components/Instructions/index.js";
-import { Loader, Button, Card } from 'rimble-ui';
+import { Loader, Button, Card, Input } from 'rimble-ui';
 
 
 import { zeppelinSolidityHotLoaderOptions } from '../config/webpack';
@@ -72,9 +72,7 @@ class App extends Component {
   };
 
 
-
-
-  ////// [In progress]： Send MintToken function
+  ////// Send MintToken function
   handleInputMintBy({ target: { value } }) {
     this.setState({ valueOfMintBy: value });
     console.log("=== [handleInputMintBy]： value ===", value); 
@@ -89,15 +87,9 @@ class App extends Component {
     const { financial_token, accounts, valueOfMintBy, valueOfMintToken } = this.state;
 
     const response = await financial_token.methods.mintToken(valueOfMintBy, valueOfMintToken).send({ from: accounts[0] })
-
     console.log('=== response of mintToken function ===', response);
-    //console.log('=== response of mintToken function（response._proposerName） ===', response.to);
-    //console.log('=== response of mintToken function（response._proposerAddress） ===', response.address);    
 
     /////// Update state with the result.
-    //this.setState({ value_of_mint_by: valueOfMintBy });
-    //this.setState({ value_of_mint_token: response._proposerName });
-
     this.setState({
       // valueOfProposerId: '',
       // proposer_id: value,
@@ -422,13 +414,11 @@ class App extends Component {
             <div className={styles.widgets}>
               <p>Mint Token</p> 
 
-              <br />
-
               <p>To</p>
-              <input type="text" value={this.state.valueOfMintBy} onChange={this.handleInputMintBy} />
+              <Input type="text" value={this.state.valueOfMintBy} onChange={this.handleInputMintBy} />
 
               <p>Value of minting token</p>
-              <input type="text" value={this.state.valueOfMintToken} onChange={this.handleInputMintToken} />
+              <Input type="text" value={this.state.valueOfMintToken} onChange={this.handleInputMintToken} />
 
               <Button onClick={this.sendMintToken}>Mint Token</Button>
             </div>
