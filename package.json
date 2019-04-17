@@ -8,6 +8,7 @@
     "start-blank": "rm -rf client/src && cp -rf barebones/src client/",
     "client": "cd client && npm run start",
     "console": "truffle console --network development",
+    "migrate": "truffle migrate --reset --network development",
     "test": "truffle test/*",
     "session": "zos session --network development --expires 7200"
   },

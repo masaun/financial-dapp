@@ -36,6 +36,23 @@ class App extends Component {
     //this.handleInput = this.handleInput.bind(this);
   }
 
+
+
+
+  getTotalSupply = async () => {
+    const { financial_token } = this.state;
+    const response = await financial_token.methods.totalSupply().call();
+    console.log('=== response of totalSupply function ===', response);
+
+    // Update state with the result.
+    this.setState({ total_supply: response });
+  };
+
+
+
+  //////////////////////////////////// 
+  ///// Ganache
+  ////////////////////////////////////
   getGanacheAddresses = async () => {
     if (!this.ganacheProvider) {
       this.ganacheProvider = getGanacheWeb3();
@@ -304,7 +321,7 @@ class App extends Component {
 
 
   renderFinancialToken() {
-    const {} = this.state;
+    const { total_supply } = this.state;
 
     return (
       <div className={styles.wrapper}>
@@ -320,7 +337,11 @@ class App extends Component {
             <div className={styles.widgets}>
               <p>Total Supply</p>
 
-              <Button onClick={this.sendCreateProposal}>Get Total Supply</Button>
+              <Button onClick={this.getTotalSupply}>Get Total Supply</Button>
+
+              <br />
+
+              {total_supply}
             </div>
           </Card>
 
