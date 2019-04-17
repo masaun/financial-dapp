@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import getWeb3, { getGanacheWeb3 } from "./utils/getWeb3";
+import getWeb3, { getGanacheWeb3, Web3 } from "./utils/getWeb3";
 import Header from "./components/Header/index.js";
 import Footer from "./components/Footer/index.js";
 import Hero from "./components/Hero/index.js";
@@ -52,10 +52,13 @@ class App extends Component {
   getBalanceOf = async () => {
     const { financial_token } = this.state;
 
-    // Temporary
-    //const accounts = await web3.eth.getAccounts();
-    //const _ownerAddress = accounts[0]
-    const _ownerAddress = '0x8Fc9d07b1B9542A71C4ba1702Cd230E160af6EB3'
+    ///// Import Web3 from /utils/getWeb3.js
+    const web3 = new Web3(window.ethereum);
+    const accounts = await web3.eth.getAccounts();
+    const _ownerAddress = accounts[0]
+
+    ///// Temporary (Constant)
+    //const _ownerAddress = '0x8Fc9d07b1B9542A71C4ba1702Cd230E160af6EB3'
 
     const response = await financial_token.methods.balanceOf(_ownerAddress).call();
     console.log('=== response of balanceOf function ===', response);
