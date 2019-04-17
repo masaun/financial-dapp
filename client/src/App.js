@@ -318,7 +318,33 @@ class App extends Component {
 
           <Card width={'420px'} bg="primary">
             <div className={styles.widgets}>
-              <p>テストテスト</p>
+              <p>Total Supply</p>
+
+              <Button onClick={this.sendCreateProposal}>Get Total Supply</Button>
+            </div>
+          </Card>
+
+          <Card width={'420px'} bg="primary">
+            <div className={styles.widgets}>
+              <p>Balance</p>
+
+              <Button onClick={this.sendCreateProposal}>Get Balance</Button>
+            </div>
+          </Card>
+
+          <Card width={'420px'} bg="primary">
+            <div className={styles.widgets}>
+              <p>Mint Token</p>
+
+              <Button onClick={this.sendCreateProposal}>Mint Token</Button>
+            </div>
+          </Card>
+
+          <Card width={'420px'} bg="primary">
+            <div className={styles.widgets}>
+              <p>Burn Token</p>
+
+              <Button onClick={this.sendCreateProposal}>Burn Token</Button>
             </div>
           </Card>
         </div>
