@@ -49,6 +49,21 @@ class App extends Component {
   };
 
 
+  getBalanceOf = async () => {
+    const { financial_token } = this.state;
+
+    // Temporary
+    //const accounts = await web3.eth.getAccounts();
+    //const _ownerAddress = accounts[0]
+    const _ownerAddress = '0x8Fc9d07b1B9542A71C4ba1702Cd230E160af6EB3'
+
+    const response = await financial_token.methods.balanceOf(_ownerAddress).call();
+    console.log('=== response of balanceOf function ===', response);
+
+    // Update state with the result.
+    this.setState({ balance_of: response });
+  };
+
 
   //////////////////////////////////// 
   ///// Ganache
@@ -321,7 +336,7 @@ class App extends Component {
 
 
   renderFinancialToken() {
-    const { total_supply } = this.state;
+    const { total_supply, balance_of } = this.state;
 
     return (
       <div className={styles.wrapper}>
@@ -349,7 +364,9 @@ class App extends Component {
             <div className={styles.widgets}>
               <p>Balance</p>
 
-              <Button onClick={this.sendCreateProposal}>Get Balance</Button>
+              <Button onClick={this.getBalanceOf}>Get Balance</Button>
+
+              {balance_of}
             </div>
           </Card>
 
