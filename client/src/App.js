@@ -30,13 +30,17 @@ class App extends Component {
       /////// Added state
       //something_value: '',
       //value: '',
+      valueOfMintBy: '',
+      valueOfMintToken: '',
+      value_of_mint_by: '',
+      value_of_mint_token: ''
     };
 
     /////// Bind something
     //this.handleInput = this.handleInput.bind(this);
+    this.handleInputMintBy = this.handleInputMintBy.bind(this);
+    this.handleInputMintToken = this.handleInputMintToken.bind(this);
   }
-
-
 
 
   getTotalSupply = async () => {
@@ -66,6 +70,47 @@ class App extends Component {
     // Update state with the result.
     this.setState({ balance_of: response });
   };
+
+
+
+
+  ////// [In progress]： Send MintToken function
+  handleInputMintBy({ target: { value } }) {
+    this.setState({ valueOfMintBy: value });
+    console.log("=== [handleInputMintBy]： value ===", value); 
+  }
+
+  handleInputMintToken({ target: { value } }) {
+    this.setState({ valueOfMintToken: value });
+    console.log("=== [handleInputMintToken]： value ===", value); 
+  }
+
+  sendMintToken = async (to, value) => {
+    const { financial_token, accounts, valueOfMintBy, valueOfMintToken } = this.state;
+
+    const response = await financial_token.methods.mintToken(valueOfMintBy, valueOfMintToken).send({ from: accounts[0] })
+
+    console.log('=== response of mintToken function ===', response);
+    //console.log('=== response of mintToken function（response._proposerName） ===', response.to);
+    //console.log('=== response of mintToken function（response._proposerAddress） ===', response.address);    
+
+    /////// Update state with the result.
+    //this.setState({ value_of_mint_by: valueOfMintBy });
+    //this.setState({ value_of_mint_token: response._proposerName });
+
+    this.setState({
+      // valueOfProposerId: '',
+      // proposer_id: value,
+      valueOfMintBy: '',
+      valueOfMintToken: '',
+      value_of_mint_by: valueOfMintBy,
+      value_of_mint_token: valueOfMintToken
+    });
+  }
+
+
+
+
 
 
   //////////////////////////////////// 
@@ -375,9 +420,17 @@ class App extends Component {
 
           <Card width={'420px'} bg="primary">
             <div className={styles.widgets}>
-              <p>Mint Token</p>
+              <p>Mint Token</p> 
 
-              <Button onClick={this.sendCreateProposal}>Mint Token</Button>
+              <br />
+
+              <p>To</p>
+              <input type="text" value={this.state.valueOfMintBy} onChange={this.handleInputMintBy} />
+
+              <p>Value of minting token</p>
+              <input type="text" value={this.state.valueOfMintToken} onChange={this.handleInputMintToken} />
+
+              <Button onClick={this.sendMintToken}>Mint Token</Button>
             </div>
           </Card>
 
